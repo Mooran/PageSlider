@@ -60,7 +60,7 @@
         this.index = 0;
         this.curPage = this.pages.eq(this.index);
         this.timer = null;
-
+        this.history = [];
         isGestureFollowing = this.gestureFollowing;
 
         if (this.direction === 'vertical' || this.direction === 'v') {
@@ -310,6 +310,10 @@
                 this.target.css('-webkit-transform', 'translate(' + distance + ', 0)');
             }
 
+            if (self.index != index) {
+                self.history.push(self.index);
+            }
+
             clearTimeout(this.timer);
             this.timer = setTimeout(function () {
                 self._currentClass(index);
@@ -341,6 +345,13 @@
 
         next: function () {
             this.moveTo(this.index + 1);
+        },
+
+        back: function () {
+            var lastIndex = this.history.pop();
+            lastIndex + 1 && this.moveTo(lastIndex);
+            /* 上面的moveTo方法会重新记录上一页 这里直接扔掉*/
+            this.history.pop();
         },
 
         _setTransition: function () {
@@ -401,7 +412,7 @@
                     animationFillMode = dataAnimation['fill-mode'] || 'both',
                     animationIterationCount = dataAnimation['iteration-count'] || 1;
 
-                $this.data('animationid', ++index);
+                $this.attr('data-animationid', ++index);
 
                 styleText += '.' + self.currentClass +
                     ' ' +

@@ -412,7 +412,7 @@
                     animationFillMode = dataAnimation['fill-mode'] || 'both',
                     animationIterationCount = dataAnimation['iteration-count'] || 1;
 
-                $this.data('animationid', ++index);
+                $this.attr('data-animationid', ++index);
 
                 styleText += '.' + self.currentClass +
                     ' ' +
