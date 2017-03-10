@@ -32,7 +32,11 @@
         },
         onbeforechange: function () {  //开始切换前的回调
         },
-        onchange: function () {   //每一屏切换完成时的回调
+        onchange: function () {     //每一屏切换完成时的回调
+        },
+        onlastpage: function(){     //最后一页时继续滑动时的回调
+        },
+        onfirstpage: function(){     //第一页时继续滑动时的回调
         }
     };
 
@@ -340,11 +344,17 @@
         },
 
         prev: function () {
-            this.moveTo(this.index - 1);
+            if (this.index == 0)
+                this.onfirstpage.call(this);
+            else
+                this.moveTo(this.index - 1);
         },
 
         next: function () {
-            this.moveTo(this.index + 1);
+            if (this.index == this.pages.length-1)
+                this.onlastpage.call(this);
+            else
+                this.moveTo(this.index + 1);
         },
 
         back: function () {
