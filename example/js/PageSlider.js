@@ -149,7 +149,8 @@
         },
 
         _startHandle: function (e) {
-            var touch = e.touches[0];
+            var touches = e.touches || e.originalEvent.touches;
+            var touch = touches[0];
 
             //是否禁止滑屏参数获取
             lockNext = this.curPage.data('lock-next');
@@ -179,7 +180,8 @@
         },
 
         _moveHandle: function (e) {
-            var touch = e.changedTouches[0],
+            var changedTouches = e.changedTouches || e.originalEvent.changedTouches;
+            var touch = changedTouches[0],
                 distance,
                 endPos;
 
@@ -235,7 +237,8 @@
         },
 
         _endHandle: function (e) {
-            var touch = e.changedTouches[0],
+            var changedTouches = e.changedTouches || e.originalEvent.changedTouches;
+            var touch = changedTouches[0],
                 distance,
                 endPos;
 
